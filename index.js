@@ -3,19 +3,38 @@ var buttonListLength = document.querySelectorAll(".drum").length;
 
 //console.log(buttonListLength);
 
-for  (var x = 0; x < buttonListLength; x++) {
-    document.querySelectorAll("button")[x].addEventListener("click", function(){
+for (var x = 0; x < buttonListLength; x++){
 
-        //this.style.color = "white";
+
+    document.querySelectorAll(".drum")[x].addEventListener("click", function (){
 
         var buttonInnerHTML = this.innerHTML;
 
-        switch (buttonInnerHTML) {
-            case "w":
-                    var tom1 = new Audio("sounds/tom-1.mp3");
+        playSound(buttonInnerHTML);
+    });
+}
 
-                    tom1.play();
-                break;
+//Event listener for key strokes
+
+document.addEventListener("keydown", function (event){
+
+    var keyPressed = event.key;
+
+    keyPressed = keyPressed.toLowerCase();
+
+    console.log(keyPressed);
+
+    playSound(keyPressed);
+})
+
+function playSound(character){
+
+    switch (character) {
+        case "w":
+                var tom1 = new Audio("sounds/tom-1.mp3");
+
+                tom1.play();
+            break;
 
             case "a":
                     var tom2 = new Audio("sounds/tom-2.mp3");
@@ -55,9 +74,11 @@ for  (var x = 0; x < buttonListLength; x++) {
 
         
             default:
-                console.log(buttonInnerHTML);
+                console.log(character);
                 break;
-        }
+    }
+}
+
 
         /*
 
@@ -109,13 +130,3 @@ for  (var x = 0; x < buttonListLength; x++) {
         }
 
         */
-       
-    })
-}
-
-// var audio = new Audio("sounds/tom-1.mp3");
-
-// audio.play();
-
-
-

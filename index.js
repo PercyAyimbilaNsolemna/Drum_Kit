@@ -1,20 +1,24 @@
 
 var buttonListLength = document.querySelectorAll(".drum").length;
 
-//console.log(buttonListLength);
+//Detecting button press
 
 for (var x = 0; x < buttonListLength; x++){
 
 
-    document.querySelectorAll(".drum")[x].addEventListener("click", function (){
+    document.querySelectorAll(".drum")[x].addEventListener("click", function (event){
+
+        //console.log(event);
 
         var buttonInnerHTML = this.innerHTML;
 
-        playSound(buttonInnerHTML);
+        makeSound(buttonInnerHTML);
+
+        buttonAnnimation(buttonInnerHTML);
     });
 }
 
-//Event listener for key strokes
+//Detecting keyboard press
 
 document.addEventListener("keydown", function (event){
 
@@ -22,14 +26,16 @@ document.addEventListener("keydown", function (event){
 
     keyPressed = keyPressed.toLowerCase();
 
-    console.log(keyPressed);
+    //console.log(keyPressed);
 
-    playSound(keyPressed);
+    makeSound(keyPressed);
+
+    buttonAnnimation(keyPressed);
 })
 
-function playSound(character){
+function makeSound(key){
 
-    switch (character) {
+    switch (key) {
         case "w":
                 var tom1 = new Audio("sounds/tom-1.mp3");
 
@@ -74,59 +80,21 @@ function playSound(character){
 
         
             default:
-                console.log(character);
+                console.log(key);
                 break;
     }
 }
 
+//Button Annimation 
 
-        /*
+function buttonAnnimation(currentKey){
+    var activeButton = document.querySelector("." + currentKey);
 
-        Used if condition to play the appropriate sounds
+    activeButton.classList.add("pressed");
 
-        if (this.innerHTML === "w") {
+    //console.log(activeButton.classList);
 
-            var audio = new Audio("sounds/tom-1.mp3");
-
-            audio.play();
-        }
-
-        else if (this.innerHTML === "a") {
-             var audio = new Audio("sounds/tom-2.mp3");
-
-             audio.play();
-        }
-
-        else if (this.innerHTML === "s") {
-
-            var audio = new Audio("sounds/tom-3.mp3");
-
-            audio.play();
-        }
-
-        else if (this.innerHTML === "d") {
-
-            var audio = new Audio("sounds/tom-4.mp3");
-
-            audio.play();
-        }
-
-        else if (this.innerHTML === "j") {
-            var audio = new Audio("sounds/snare.mp3");
-
-            audio.play();
-        }
-
-        else if (this.innerHTML === "k"){
-            var audio = new Audio("sounds/crash.mp3");
-
-            audio.play();
-        }
-
-        else {
-            var audio = new Audio("sounds/kick-bass.mp3");
-
-            audio.play();
-        }
-
-        */
+    setTimeout( function() {
+        activeButton.classList.remove("pressed");
+    }, 100);
+}
